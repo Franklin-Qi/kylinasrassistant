@@ -1,4 +1,4 @@
-(简体中文|English(./README.md))
+(简体中文|[English](./README.md))
 
 <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow"></a>
 
