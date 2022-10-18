@@ -1,0 +1,29 @@
+div {
+    color: brown;
+}
+
+button {
+    width: 100px;
+    height: 100px;
+    color: brown;
+    border-radius: 50%;
+}
+
+canvas {
+    background-color: burlywood;
+    width: 30%;
+    height: 10%;
+}
+
+#my-recorder {
+    display: table-cell;
+    margin-bottom: 300px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#container {
+    display: table;
+    min-height: 100vh;
+    min-width: 100vw;
+}
