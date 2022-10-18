@@ -1,5 +1,18 @@
-function func(str) {
-    console.log("yushuoqi1");
-    console.log('接受语音识别出的文本，接下来进行指令解析： ', str);
-    console.log("yushuoqi");
+// const configRequest = fetch('./config/config.json');
+
+// const configJson = configRequest.json();
+// const objectJson = configJson["CommandObject"];
+// const operationJson = configJson["Operation"];
+
+(async() => {
+    const configRequest = await fetch('./config/config.json');
+    const configJson = await configRequest.json();
+    const objectJson = configJson["CommandObject"];
+    const operationJson = configJson["Operation"];
+    console.log(objectJson);
+})()
+
+function matchCommand(str) {
+    // 从头开始匹配操作对象或者操作类型
+
 }
