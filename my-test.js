@@ -69,7 +69,7 @@ function drawPlay() {
     // this.drawPlayId = requestAnimationFrame(this.drawPlay);
     // 实时获取音频大小数据
     let dataArray = recorder.getRecordAnalyseData();
-    bufferLength = dataArray.length;
+    var bufferLength = dataArray.length;
     // 填充背景色
     ctx_2d.fillStyle = 'rgb(200, 200, 200)';
     ctx_2d.fillRect(0, 0, canvas_2d.width, canvas_2d.height);
@@ -154,10 +154,9 @@ function stopRecorder() {
     onReco = false;
     recorder.clear();
 
-    console.log('===========> ', resLabel.innerText);
-    var resResult = new String(resLabel.innerHTML);
-    func(resResult); // 开始根据识别结果文本解析操作指令
-    console.log('<===========> ', resLabel.innerText);
+    console.log('待处理文本： ', resLabel.innerText);
+    var resText = resLabel.innerText; // 需要一个中间变量来存储值，否则函数参数会报未定义错误
+    matchCommand(resText); // 开始根据识别结果文本解析操作指令
 };
 
 // stopButton.onmousedown = stopRecorder;
@@ -168,3 +167,4 @@ window.onbeforeunload = function() {
     var end = JSON.stringify({ "name": "test.wav", "nbest": 5, "signal": "end" });
     ws.send(end);
 };
+
