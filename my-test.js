@@ -156,7 +156,15 @@ function stopRecorder() {
 
     console.log('待处理文本： ', resLabel.innerText);
     var resText = resLabel.innerText; // 需要一个中间变量来存储值，否则函数参数会报未定义错误
-    matchCommand(resText); // 开始根据识别结果文本解析操作指令
+    var matchCommandResult = matchCommand(resText); // 开始根据识别结果文本解析操作指令
+    if (matchCommandResult[0] != -1) {
+        console.table(matchCommandResult);
+        for (var i = 0; i < matchCommandResult.length; i++) {
+            console.log(matchCommandResult.length + ' 指令匹配结果： ' + matchCommandResult[i]);
+        }
+    } else {
+        console.log("指令匹配结果： 未匹配到相关指令，请继续尝试指令！如'打开音乐'、'搜索今天天气'");
+    }
 };
 
 // stopButton.onmousedown = stopRecorder;
