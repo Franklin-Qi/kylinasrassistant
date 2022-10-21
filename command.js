@@ -44,6 +44,7 @@
 
 var urlJson;
 var commandObjectJson;
+var highlowCommandObjectJson;
 var operationJson;
 
 (async() => {
@@ -51,6 +52,7 @@ var operationJson;
     const configJson = await configRequest.json();
     urlJson = configJson["URL"];
     commandObjectJson = configJson["CommandObject"];
+    highlowCommandObjectJson = configJson["HighLowCommandObject"];
     operationJson = configJson["Operation"];
 })()
 
@@ -59,6 +61,7 @@ function matchCommand(resResult) {
     console.log('开始处理语音识别的文本： ' + resResult);
     console.log(urlJson);
     console.log(operationJson);
+    console.log(highlowCommandObjectJson);
     console.log(commandObjectJson);
 
     var valueOperation; // 操作的代号
@@ -106,13 +109,14 @@ function matchCommand(resResult) {
                 case 3:
                     console.log('执行设置操作!');
 
+                    // 实例： 设置音量到八十 =》 设置音量到80
                     var setIndex = index + 2; // 定位到“设置”之后字符
 
-                    var valueCommand = getCommandObjectValue(keyOperation, valueOperation, setIndex, resString);
+                    var valueCommand = getHighLowCommandObjectValue(keyOperation, valueOperation, setIndex, resString);
                     if (valueCommand[1] != -1){
-                        return [1, valueCommand[0], valueOperation, valueCommand[1]];
+                        return [1, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]];
                     } else {
-                        return [-1, valueCommand[0], -1, -1];
+                        return [-1, valueCommand[0], -1, -1, -1];
                     }
 
                     break;
@@ -121,9 +125,13 @@ function matchCommand(resResult) {
 
                     var highIndex = index + 2; // 定位到“调高”之后字符
 
-                    var valueCommand = getCommandObjectValue(keyOperation, valueOperation, highIndex, resString);
+                    var valueCommand = getHighLowCommandObjectValue(keyOperation, valueOperation, highIndex, resString);
                     if (valueCommand[1] != -1){
-                        return [1, valueCommand[0], valueOperation, valueCommand[1], 10]; // 默认调高10
+                        if (valueCommand.length == 3 && valueCommand[2] != -1) {
+                            return [1, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]]; // 设置调高值
+                        } else {
+                            return [1, valueCommand[0], valueOperation, valueCommand[1], 10]; // 默认调高10
+                        }
                     } else {
                         return [-1, valueCommand[0], -1, -1, 10];
                     }
@@ -134,9 +142,13 @@ function matchCommand(resResult) {
 
                     var lowIndex = index + 2; // 定位到“调低”之后字符
 
-                    var valueCommand = getCommandObjectValue(keyOperation, valueOperation, lowIndex, resString);
+                    var valueCommand = getHighLowCommandObjectValue(keyOperation, valueOperation, lowIndex, resString);
                     if (valueCommand[1] != -1){
-                        return [1, valueCommand[0], valueOperation, valueCommand[1], 10]; // 默认调低10
+                        if (valueCommand.length == 3 && valueCommand[2] != -1) {
+                            return [1, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]]; // 设置调高值
+                        } else {
+                            return [1, valueCommand[0], valueOperation, valueCommand[1], 10]; // 默认调高10
+                        }
                     } else {
                         return [-1, valueCommand[0], -1, -1, 10];
                     }
@@ -179,6 +191,7 @@ function getCommandObjectValue(keyOperation, valueOperation, index, strResult) {
     console.log("子串： " + subStrResult);
     var desc;
 
+
     for (keyCommandObject in commandObjectJson) {
         var valueCommandObject = commandObjectJson[keyCommandObject];
         console.log('遍历命令： ' + keyCommandObject + valueCommandObject);
@@ -191,9 +204,38 @@ function getCommandObjectValue(keyOperation, valueOperation, index, strResult) {
             return [desc, valueCommandObject];
         }
     }
-
     desc = '无操作指令';
     return [desc, -1];
+}
+
+function getHighLowCommandObjectValue(keyOperation, valueOperation, index, strResult) {
+    var subStrResult = strResult.substring(index);
+    console.log("子串： " + subStrResult);
+    var desc;
+
+    var arg1Number; // 第一个数字参数
+
+    arg1Number = getChineseNumber(subStrResult);
+    if (arg1Number != -1) {
+        console.log("数字汉字转阿拉伯数字成功： " + subStrResult + " => " + arg1Number);
+    } else {
+        console.log("数字汉字转阿拉伯数字失败： " + subStrResult + " => " + arg1Number);
+    }
+
+    for (keyCommandObject in highlowCommandObjectJson) {
+        var valueCommandObject = highlowCommandObjectJson[keyCommandObject];
+        console.log('遍历命令： ' + keyCommandObject + valueCommandObject);
+        desc = keyOperation + keyCommandObject + arg1Number;
+        console.log('指令描述desc: ' + desc);
+
+        if (subStrResult.startsWith(keyCommandObject)) {
+            console.log('成功匹配到指令: ' + keyCommandObject + valueCommandObject);
+            console.log('*****************\n\n');
+            return [desc, valueCommandObject, arg1Number];
+        }
+    }
+    desc = '无操作指令';
+    return [desc, -1, -1];
 }
 
 
