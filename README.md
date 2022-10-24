@@ -8,14 +8,26 @@ call paddlespeech asr streaming server by js and html.
 
 ## Quick Start
 
+### Quick Start from git
 ```shell
-$ cd kylinasrassistant
-$ npm install
+$ git clone https://github.com/Franklin-Qi/kylinasrassistant.git
+$ npm install # install dependencies
 $ python -m SimpleHTTPServer 8088 
 $ firefox index.html # firefox could be replaced, such as chrome etc.
 ```
 Start service above. We could input `http://localhost:8088/` to display mainpage.
 
+### Quick Start from npm
+```shell
+$ mkdir kylinasrassistant
+$ npm install kyasrassistant && cd ./node_modules/kylinasrassistant
+$ npm install # install dependencies
+$ python -m SimpleHTTPServer 8088 
+$ firefox index.html # firefox could be replaced, such as chrome etc.
+```
+Start service above. We could input `http://localhost:8088/` to display mainpage.
+
+![npm kylinasrassistant](./npm_kyasrassistant.png)
 
 ## Contributors
 
