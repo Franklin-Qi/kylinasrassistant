@@ -8,6 +8,8 @@
         0: 该指令不需要参数
         1: 该指令需要1个参数
         2: 该指令需要2个参数
+        3: 该指令需要3个参数
+        4: 该指令需要4个参数
         ...
 
     desc:  指令文字描述。如“打开音乐”。
@@ -25,16 +27,16 @@
         cmdCallBack(-1, "无操作指令", -1, -1) => 指令： 当前指令不存在，不需要执行相关操作
 
         // 无参数指令情况： H5方面需要根据operateCode 和 objectCode 参数来判断
-        cmdCallBack(0, "打开音乐", 1（操作类型编号：打开），1（指令对象编号：音乐）) => 无参数指令： 打开音乐
-        cmdCallBack(0, "关闭音乐", 2（操作类型编号：关闭），1（指令对象编号：音乐）) => 无参数指令： 关闭音乐
-        cmdCallBack(0, "打开蓝牙", 1（操作类型编号：打开），16（指令对象编号：蓝牙）) => 无参数指令： 打开蓝牙
-        cmdCallBack(0, "关闭蓝牙", 2（操作类型编号：打开），16（指令对象编号：蓝牙）) => 无参数指令： 关闭蓝牙
+        cmdCallBack(3, "打开音乐", 1（操作类型编号：打开），1（指令对象编号：音乐）) => 无参数指令： 打开音乐
+        cmdCallBack(3, "关闭音乐", 2（操作类型编号：关闭），1（指令对象编号：音乐）) => 无参数指令： 关闭音乐
+        cmdCallBack(3, "打开蓝牙", 1（操作类型编号：打开），16（指令对象编号：蓝牙）) => 无参数指令： 打开蓝牙
+        cmdCallBack(3, "关闭蓝牙", 2（操作类型编号：打开），16（指令对象编号：蓝牙）) => 无参数指令： 关闭蓝牙
 
         // 一个参数指令情况： H5方面需要根据operateCode 、 objectCode 和 <arg1> 参数来判断
-        cmdCallBack(1, "搜索今天天气怎么样", 7(操作类型编号：搜索），20（指令对象编号：搜索）, “今天天气怎么样”(指令参数)) => 1个参数指令：搜索今天天气怎么样 
-        cmdCallBack(1, "设置音量到80", 3（操作类型编号：设置），18（指令对象编号：音量）, 80(指令参数1)) => 一个参数指令： 设置音量到80
-        cmdCallBack(1, "调高音量(每次默认10)", 4(操作类型编号：调高），18（指令对象编号：音量）, 10(指令参数1)) => 一个参数指令： 调高音量，每次默认10
-        cmdCallBack(1, "调低音量(每次默认10)", 5(操作类型编号：调低），18（指令对象编号：音量）, 10(指令参数1)) => 一个参数指令： 调低音量，每次默认10
+        cmdCallBack(4, "搜索今天天气怎么样", 7(操作类型编号：搜索），20（指令对象编号：搜索）, “今天天气怎么样”(指令参数)) => 1个参数指令：搜索今天天气怎么样 
+        cmdCallBack(4, "设置音量到80", 3（操作类型编号：设置），18（指令对象编号：音量）, 80(指令参数1)) => 一个参数指令： 设置音量到80
+        cmdCallBack(4, "调高音量(每次默认10)", 4(操作类型编号：调高），18（指令对象编号：音量）, 10(指令参数1)) => 一个参数指令： 调高音量，每次默认10
+        cmdCallBack(4, "调低音量(每次默认10)", 5(操作类型编号：调低），18（指令对象编号：音量）, 10(指令参数1)) => 一个参数指令： 调低音量，每次默认10
 
     <<<<<<<<<<<<<<<<<<
 
@@ -108,7 +110,7 @@ function matchCommand(resResult) {
 
                     var valueCommand = getCommandObjectValue(keyOperation, valueOperation, openIndex, resString);
                     if (valueCommand[1] != -1){
-                        return [0, valueCommand[0], valueOperation, valueCommand[1]];
+                        return [3, valueCommand[0], valueOperation, valueCommand[1]];
                     } else {
                         return [-1, valueCommand[0], -1, -1];
                     }
@@ -120,7 +122,7 @@ function matchCommand(resResult) {
 
                     var valueCommand = getCommandObjectValue(keyOperation, valueOperation, closeIndex, resString);
                     if (valueCommand[1] != -1){
-                        return [0, valueCommand[0], valueOperation, valueCommand[1]];
+                        return [3, valueCommand[0], valueOperation, valueCommand[1]];
                     } else {
                         return [-1, valueCommand[0], -1, -1];
                     }
@@ -134,7 +136,7 @@ function matchCommand(resResult) {
 
                     var valueCommand = getHighLowCommandObjectValue(keyOperation, valueOperation, setIndex, resString);
                     if (valueCommand[1] != -1){
-                        return [1, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]];
+                        return [4, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]];
                     } else {
                         return [-1, valueCommand[0], -1, -1, -1];
                     }
@@ -148,9 +150,9 @@ function matchCommand(resResult) {
                     var valueCommand = getHighLowCommandObjectValue(keyOperation, valueOperation, highIndex, resString);
                     if (valueCommand[1] != -1){
                         if (valueCommand.length == 3 && valueCommand[2] != -1) {
-                            return [1, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]]; // 设置调高值
+                            return [4, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]]; // 设置调高值
                         } else {
-                            return [1, valueCommand[0], valueOperation, valueCommand[1], 10]; // 默认调高10
+                            return [4, valueCommand[0], valueOperation, valueCommand[1], 10]; // 默认调高10
                         }
                     } else {
                         return [-1, valueCommand[0], -1, -1, 10];
@@ -165,9 +167,9 @@ function matchCommand(resResult) {
                     var valueCommand = getHighLowCommandObjectValue(keyOperation, valueOperation, lowIndex, resString);
                     if (valueCommand[1] != -1){
                         if (valueCommand.length == 3 && valueCommand[2] != -1) {
-                            return [1, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]]; // 设置调高值
+                            return [4, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]]; // 设置调高值
                         } else {
-                            return [1, valueCommand[0], valueOperation, valueCommand[1], 10]; // 默认调高10
+                            return [4, valueCommand[0], valueOperation, valueCommand[1], 10]; // 默认调高10
                         }
                     } else {
                         return [-1, valueCommand[0], -1, -1, 10];
@@ -181,16 +183,16 @@ function matchCommand(resResult) {
 
                     var valueCommand = getSearchCommandObjectValue(setIndex, resString);
                     if (valueCommand[1] != -1){
-                        // 实例： [1, "搜索今天天气怎么样", 6 "今天天气怎么样?"]
-                        return [1, valueCommand[0], valueOperation, valueCommand[1]];
+                        // 实例： [4, "搜索今天天气怎么样", 6 "今天天气怎么样?"]
+                        return [4, valueCommand[0], valueOperation, valueCommand[1], valueCommand[2]];
                     } else {
-                        return [-1, valueCommand[0], -1, -1];
+                        return [-1, valueCommand[0], -1, -1, -1];
                     }
 
                     break;
                 default:
                     console.log('不支持该操作: ' + keyOperation + operationJson)
-                    return [-1, '无操作指令', -1], -1;
+                    return [-1, '无操作指令', -1, -1];
             }
         } 
     }
@@ -270,14 +272,15 @@ function getSearchCommandObjectValue(index, strResult) {
     console.log("子串： " + subStrResult);
 
     var desc = strResult.substring(index-2);
+    var valueCommandObject = 20; // 搜索应用对于的编号
 
     if (subStrResult == ""){
         console.log('没有搜索内容\n\n');
-        return [desc, -1];
+        return [desc, -1, -1];
 
     } else {
         console.log('*****************\n\n');
-        return [desc, subStrResult];
+        return [desc, valueCommandObject, subStrResult];
     }
 
 }
