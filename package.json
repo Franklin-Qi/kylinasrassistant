@@ -1,0 +1,33 @@
+{
+  "name": "kylinasrassistant",
+  "version": "1.0.0",
+  "description": "kylin asr assistant",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "json-loader": "^0.5.7",
+    "pinyin-pro": "^3.11.0",
+    "js-audio-recorder": "^0.5.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Franklin-Qi/asr-js-h5-demo.git"
+  },
+  "keywords": [
+    "kylin",
+    "asr",
+    "assistant"
+  ],
+  "author": "yushuoqi, liucong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Franklin-Qi/asr-js-h5-demo/issues"
+  },
+  "homepage": "https://github.com/Franklin-Qi/asr-js-h5-demo#readme"
+}
