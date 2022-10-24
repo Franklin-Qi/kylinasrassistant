@@ -42,11 +42,30 @@
     错误码: 
     */
 
+// 加载中文转拼音js
+var { pinyin, customPinyin } = pinyinPro;
+// 自定义拼音
+customPinyin({
+  音乐: 'yin yue', // 不自定义，音乐会翻译成'yin le'
+});
+
 var urlJson;
 var commandObjectJson;
 var highlowCommandObjectJson;
 var operationJson;
 
+///////////////////////////////////////////////////////// js module test
+//var chinesetonumber = require('./chineseToNumber');
+//const configJson = require('./config/config.json');
+//
+//urlJson = configJson["URL"];
+//commandObjectJson = configJson["CommandObject"];
+//highlowCommandObjectJson = configJson["HighLowCommandObject"];
+//operationJson = configJson["Operation"];
+///////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////// 浏览器fetch 方式
 (async() => {
     const configRequest = await fetch('./config/config.json');
     const configJson = await configRequest.json();
@@ -55,6 +74,7 @@ var operationJson;
     highlowCommandObjectJson = configJson["HighLowCommandObject"];
     operationJson = configJson["Operation"];
 })()
+/////////////////////////////////////////////////////////
 
 function matchCommand(resResult) {
     // 从头开始匹配操作对象或者操作类型
@@ -261,3 +281,10 @@ function getSearchCommandObjectValue(index, strResult) {
     }
 
 }
+
+var yinyueRes = pinyin('音乐');
+console.log(yinyueRes);
+console.log(pinyin('汉语拼音', { toneType: 'none' })); // 'hàn yǔ pīn yīn'
+
+//module.exports =  matchCommand ;
+

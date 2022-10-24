@@ -153,4 +153,15 @@ function getChineseNumber(str) {
     }
 
 }
-// getChineseNumber("设置音量到八十");
+getChineseNumber("设置音量到八十");
+
+// 其他js模块导入方式为:
+// var chinesetonumber = require('./chineseToNumber');
+// chinesetonumber.getChineseNumber(subStrResult);
+//
+// js module
+// module.exports = {
+//     chineseToNumber: chineseToNumber,
+//     getChineseNumber: getChineseNumber
+// }
+

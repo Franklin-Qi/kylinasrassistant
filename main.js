@@ -1,3 +1,4 @@
+// var matchCommand = require('./command'); // js module
 
 var onReco = false;
 
@@ -17,17 +18,6 @@ var lockReconnect = false;
 
 var server = "ws://172.30.40.147:8090/paddlespeech/asr/streaming";
 var ws = new WebSocket(server);
-
-(async() => {
-    const fetchRequest = await fetch('./config/config.json');
-    const json = await fetchRequest.json();
-    for (var key in json) {
-        console.log(key, ":");
-        for (var key2 in json[key]) {
-            console.log(key2, ":", json[key][key2])
-        }
-    }
-})()
 
 
 function createWebSocket() {
@@ -163,7 +153,7 @@ function stopRecorder() {
             console.log(matchCommandResult.length + ' 指令匹配结果： ' + matchCommandResult[i]);
         }
     } else {
-        console.log("指令匹配结果： 未匹配到相关指令，请继续尝试指令！如'打开音乐'、'搜索今天天气'");
+        console.log("指令匹配结果： 未匹配到相关指令，请继续尝试指令！如'打开音乐'、'设置音量到八十'、'搜索今天天气'");
     }
 };
 
