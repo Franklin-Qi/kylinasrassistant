@@ -2,7 +2,7 @@
 
 <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow"></a>
 
-# kylinasrassistant`
+# kylinasrassistant
 
 通过js、html 调用`paddlespeech`的实时语音识别服务。
 
