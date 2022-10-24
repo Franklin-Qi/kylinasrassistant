@@ -2,14 +2,15 @@
 
 <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow"></a>
 
-# asr-js-h5-demo
+# kylinasrassistant
 
 call paddlespeech asr streaming server by js and html.
 
 ## Quick Start
 
 ```shell
-$ cd asr-js-h5-demo
+$ cd kylinasrassistant
+$ npm install
 $ python -m SimpleHTTPServer 8088 
 $ firefox index.html # firefox could be replaced, such as chrome etc.
 ```
@@ -18,8 +19,8 @@ Start service above. We could input `http://localhost:8088/` to display mainpage
 
 ## Contributors
 
-liucong
+yushuoqi, liucong
 
 ## License
 
-asr-js-h5-demo is provided under the [MIT License](./LICENSE).
+kylinasrassistant is provided under the [MIT License](./LICENSE).
