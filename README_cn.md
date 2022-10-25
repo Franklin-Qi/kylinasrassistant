@@ -1,4 +1,4 @@
-(简体中文|[English](./README.md))
+(![cn](https://raw.githubusercontent.com/Franklin-Qi/flags/master/flags/flags/shiny/24/China.png) 简体中文|[English](./README.md))
 
 <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow"></a>
 
