@@ -1,6 +1,6 @@
 {
-  "name": "kyasrassistant",
-  "version": "1.0.0",
+  "name": "kylinasrassistant",
+  "version": "1.0.1",
   "description": "kylin asr assistant",
   "main": "main.js",
   "directories": {

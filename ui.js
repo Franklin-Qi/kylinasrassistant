@@ -5,6 +5,7 @@ canvas_2d.setAttribute('id', 'm2d');
 canvas_2d.style['backgroundColor'] = 'burlywood';
 canvas_2d.style['width'] = '30%';
 canvas_2d.style['height'] = '10%';
+canvas_2d.style['border-radius'] = '20px';
 
 var br1 = document.createElement("br");
 var br2 = document.createElement("br");
