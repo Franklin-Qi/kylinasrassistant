@@ -135,6 +135,8 @@ function SpeechAIEngine(cmdCallBack, errCallBack) {
                 self.stopRecognition();
                 self.commandCallBack(matchCommandResult);
             } else {
+                // 每5000ms 进行一次将语音识别的文本进行指令匹配，如果超过5s未匹配上，则代表匹配失败。
+                // 同时，上面匹配指令是500ms一次，也就是代表一次文本匹配是可以10次，经过10次匹配失败，则自动判定当前识别文本失败，进行下一次文本识别。
                 if (timeNow - self.speechDuration > 5000) {
                     self.matchErrorIndex = temp.result.length;
                     self.stopRecognition();
